@@ -1,0 +1,66 @@
+ext {
+    //android版本
+    android = [
+            compileSdkVersion: 29,
+            buildToolsVersion: "29.0.2",
+            minSdkVersion    : 21,
+            targetSdkVersion : 29
+    ]
+
+    dependVersion = [
+            navigation      : "2.1.0",
+            lifecycle       : "2.1.0",
+            material        : "1.0.0",
+            appcompat       : "1.1.0",
+            core_ktx        : "1.1.0",
+            constraintLayout: "2.0.0-beta2",
+            legacy_support  : "1.0.0",
+            ok_http_version : "3.14.2",
+            retrofit_version: "2.6.0"
+    ]
+
+    depend = [
+            //kotlin
+            "kotlin"                 : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${kotlin_version}",
+
+            //lifecycle
+            "lifecycle-extensions"   : "androidx.lifecycle:lifecycle-extensions:${dependVersion.lifecycle}",
+
+            //material
+            "material"               : "com.google.android.material:material:${dependVersion.material}",
+
+            //okHttp
+            "okhttp"                 : "com.squareup.okhttp3:okhttp:${dependVersion.ok_http_version}",
+            "logging-interceptor"    : "com.squareup.okhttp3:logging-interceptor:${dependVersion.ok_http_version}",
+
+            //retrofit
+            "retrofit"               : "com.squareup.retrofit2:retrofit:${dependVersion.retrofit_version}",
+            "converter-gson"         : "com.squareup.retrofit2:converter-gson:${dependVersion.retrofit_version}",
+            "adapter-rxjava"         : "com.squareup.retrofit2:adapter-rxjava:${dependVersion.retrofit_version}",
+
+            //appcompat
+            "appcompat"              : "androidx.appcompat:appcompat:${dependVersion.appcompat}",
+            "legacy_support"         : "androidx.legacy:legacy-support-v4:${dependVersion.legacy_support}",
+
+            //core-ktx
+            "core-ktx"               : "androidx.core:core-ktx:${dependVersion.core_ktx}",
+
+            //constraintLayout
+            "constraintLayout"       : "androidx.constraintlayout:constraintlayout:${dependVersion.constraintLayout}",
+
+            //navigation
+            "navigation-fragment-ktx": "androidx.navigation:navigation-fragment-ktx:${dependVersion.navigation}",
+            "navigation-ui-ktx"      : "androidx.navigation:navigation-ui-ktx:${dependVersion.navigation}",
+
+            //fastJson
+            "fastJson"               : "com.alibaba:fastjson:1.2.60",
+
+            //androidUtil
+            "android_util"           : "com.blankj:utilcode:1.25.7",
+
+            //banner
+            "banner"                 : "com.youth.banner:banner:1.4.10"
+    ]
+
+    libraries = depend.values()
+}
