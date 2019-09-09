@@ -23,8 +23,13 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            zipAlignEnabled true
+            shrinkResources true
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
         }
     }
 
@@ -64,6 +69,9 @@ androidExtensions {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
     implementation rootProject.ext.libraries
+
     kapt rootProject.ext.compile["arouter_compile"]
+    kapt rootProject.ext.compile["glide_compile"]
 }

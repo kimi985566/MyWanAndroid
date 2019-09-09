@@ -1,6 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorAccent">#3d3d3d</color>
+    <color name="colorPrimary">#03a9f4</color>
+    <color name="colorPrimaryDark">#03a9f4</color>
+
+    <!--常用颜色-->
+    <color name="common_bg">#f5f5f5</color>
+    <color name="common_white">#ffffff</color>
+    <color name="common_gray">#dddddd</color>
+    <color name="common_black">#000000</color>
+    <color name="common_blue">#33B5E5</color>
+    <color name="common_blue_dark">#0099CC</color>
+    <color name="common_purple">#AA66CC</color>
+    <color name="common_purple_deep">#9933CC</color>
+    <color name="common_green">#99CC00</color>
+    <color name="common_green_deep">#669900</color>
+    <color name="common_yellow">#fe9c2f</color>
+    <color name="common_orange">#FFBB33</color>
+    <color name="common_orange_deep">#FF8800</color>
+    <color name="common_red">#FF4444</color>
+    <color name="common_red_deep">#CC0000</color>
+
+    <!--列表相关-->
+    <color name="common_list_divider">#D3D3D3</color>
+    <color name="common_list_item_bg">#F7F7F7</color>
+    <color name="common_list_item_bg_selected">#E1E1E1</color>
+    <color name="common_disable">#d9d9d9</color>
+    <color name="common_mask">#88888888</color>
+    <color name="common_boarder">#e6e6e6</color>
+
+    <!--文字相关-->
+    <color name="text_dark">#999999</color>
+    <color name="text_light_dark">#333333</color>
+    <color name="text_normal">#666666</color>
+    <color name="text_dark_black">#43474d</color>
+    <color name="transparent">#00000000</color>
+
+    <!--渐变色-->
+    <color name="gradient_red">#fff6f2</color>
+    <color name="gradient_blue">#EEEFFD</color>
+    <color name="gradient_green">#f1fff3</color>
 </resources>

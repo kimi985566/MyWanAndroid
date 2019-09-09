@@ -1,7 +1,8 @@
-package cn.yangchengyu.mywanandroid
+package cn.yangchengyu.mywanandroid.ui.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import cn.yangchengyu.mywanandroid.R
 
 class MainActivity : AppCompatActivity() {
 
