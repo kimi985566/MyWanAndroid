@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/WrapWrap.Vertical"
+    android:background="@drawable/progress_dialog_bg"
+    android:gravity="center"
+    android:padding="25dp">
+
+    <ImageView
+        android:id="@+id/iv_loading"
+        style="@style/WrapWrap"
+        android:layout_gravity="center"
+        app:layout_constraintBottom_toTopOf="@id/tv_loading"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/animated_splash_logo" />
+
+    <TextView
+        android:id="@+id/tv_loading"
+        style="@style/WrapWrap"
+        android:layout_marginTop="10dp"
+        android:textColor="@android:color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_loading"
+        tools:text="加载中" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

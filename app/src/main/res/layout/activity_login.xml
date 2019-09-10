@@ -16,14 +16,24 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:titleTextColor="@color/common_white" />
 
+    <ImageView
+        android:id="@+id/loginLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/common_margin"
+        android:background="@mipmap/ic_launcher"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginToolBar" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/loginUserName"
-        style="@style/TextInputLayout"
-        android:layout_marginTop="80dp"
+        style="@style/TextInputLayoutStyle"
+        android:layout_marginTop="@dimen/common_margin"
         android:hint="@string/username"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginToolBar">
+        app:layout_constraintTop_toBottomOf="@+id/loginLogo">
 
         <androidx.appcompat.widget.AppCompatEditText
             android:layout_width="match_parent"
@@ -35,7 +45,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/loginPassWord"
-        style="@style/TextInputLayout"
+        style="@style/TextInputLayoutStyle"
         android:hint="@string/password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -52,18 +62,25 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/loginButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"
-        android:background="@color/colorPrimary"
-        android:text="登陆"
-        android:textColor="@color/common_white"
+        style="@style/FullBtnStyle"
+        android:layout_marginTop="30dp"
+        android:text="@string/login"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginPassWord" />
+
+    <TextView
+        android:id="@+id/loginRegisterText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/common_margin"
+        android:text="@string/registerAccount"
+        android:textColor="@color/common_blue"
+        android:textSize="@dimen/text_big_size"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

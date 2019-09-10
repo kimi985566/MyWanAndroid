@@ -3,6 +3,7 @@ package cn.yangchengyu.mywanandroid.base
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LifecycleObserver
+import cn.yangchengyu.mywanandroid.ui.fragment.ProgressDialogFragment
 
 /**
  * Desc  : BaseActivity
@@ -11,6 +12,12 @@ import androidx.lifecycle.LifecycleObserver
  */
 
 abstract class BaseActivity : AppCompatActivity(), LifecycleObserver {
+
+    private val progressDialog: ProgressDialogFragment by lazy {
+        ProgressDialogFragment.newInstance(
+            "加载中"
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +34,14 @@ abstract class BaseActivity : AppCompatActivity(), LifecycleObserver {
     override fun onDestroy() {
         super.onDestroy()
         AppManager.finishActivity(this)
+    }
+
+    fun showProgressDialog() {
+        progressDialog.show(supportFragmentManager, "loadingDialog")
+    }
+
+    fun dismissProgressDialog() {
+        progressDialog.dismissAllowingStateLoss()
     }
 
     //布局Id
