@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 
 open class BaseViewModel : ViewModel(), LifecycleObserver {
 
-    val exceptionViewModel: MutableLiveData<Throwable> = MutableLiveData()
+    val exceptionViewModel: MutableLiveData<Throwable> by lazy { MutableLiveData<Throwable>() }
 
     fun viewModelLaunch(block: suspend CoroutineScope.() -> Unit) {
         viewModelScope.launch {

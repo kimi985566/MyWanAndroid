@@ -18,7 +18,7 @@ class LoginViewModel : BaseViewModel() {
 
     var loginUser: MutableLiveData<UserInfo> = MutableLiveData()
     var registerUser: MutableLiveData<UserInfo> = MutableLiveData()
-    val errorMsg: MutableLiveData<String> = MutableLiveData()
+    val errorMsg: MutableLiveData<String> by lazy { MutableLiveData<String>() }
 
     private val repository by lazy { LoginRepository() }
 
