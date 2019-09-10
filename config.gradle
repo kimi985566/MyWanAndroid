@@ -58,6 +58,7 @@ ext {
             //okHttp
             "okhttp"                       : "com.squareup.okhttp3:okhttp:${dependVersion.ok_http_version}",
             "logging-interceptor"          : "com.squareup.okhttp3:logging-interceptor:${dependVersion.ok_http_version}",
+            "cookie-jar"                   : "com.github.franmontiel:PersistentCookieJar:v1.0.1",
 
             //retrofit
             "retrofit"                     : "com.squareup.retrofit2:retrofit:${dependVersion.retrofit_version}",

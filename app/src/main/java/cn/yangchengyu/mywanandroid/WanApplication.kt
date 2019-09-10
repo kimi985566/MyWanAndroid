@@ -49,14 +49,14 @@ class WanApplication : MultiDexApplication() {
 
     private val lifecycleCallbacks = object : ActivityLifecycleCallbacks {
         override fun onActivityCreated(activity: Activity, bundle: Bundle?) {
-            LogUtils.d(activity.componentName.className + "onCreated")
+            LogUtils.d(activity.componentName.className + " " + "onCreated")
         }
 
         override fun onActivityStarted(activity: Activity) {
         }
 
         override fun onActivityResumed(activity: Activity) {
-            LogUtils.d(activity.componentName.className + "onResume")
+            LogUtils.d(activity.componentName.className + " " + "onResume")
         }
 
         override fun onActivityPaused(activity: Activity) {
@@ -69,7 +69,7 @@ class WanApplication : MultiDexApplication() {
         }
 
         override fun onActivityDestroyed(activity: Activity) {
-            LogUtils.d(activity.componentName.className + "onDestroy")
+            LogUtils.d(activity.componentName.className + " " + "onDestroy")
         }
     }
 

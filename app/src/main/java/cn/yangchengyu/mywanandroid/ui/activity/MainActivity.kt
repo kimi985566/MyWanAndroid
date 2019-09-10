@@ -1,13 +1,13 @@
 package cn.yangchengyu.mywanandroid.ui.activity
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import cn.yangchengyu.mywanandroid.R
+import cn.yangchengyu.mywanandroid.base.BaseActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-    }
+    override fun getLayoutResId(): Int = R.layout.activity_main
+
+    override fun initView() {}
+
+    override fun initData() {}
 }

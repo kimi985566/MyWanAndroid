@@ -1,5 +1,6 @@
 package cn.yangchengyu.mywanandroid.data.api
 
+import androidx.lifecycle.LifecycleObserver
 import cn.yangchengyu.mywanandroid.data.model.WanResponse
 
 /**
@@ -7,7 +8,7 @@ import cn.yangchengyu.mywanandroid.data.model.WanResponse
  * Author: Chengyu Yang
  * Date  : 2019-09-09
  */
-open class BaseRepository {
+open class BaseRepository : LifecycleObserver {
     suspend fun <T : Any> apiCall(call: suspend () -> WanResponse<T>): WanResponse<T> {
         return call.invoke()
     }

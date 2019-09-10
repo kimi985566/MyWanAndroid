@@ -1,27 +1,39 @@
 package cn.yangchengyu.mywanandroid.data
 
+import cn.yangchengyu.mywanandroid.WanApplication
 import cn.yangchengyu.mywanandroid.base.BaseConstant
 import cn.yangchengyu.mywanandroid.data.api.WanLoginService
 import cn.yangchengyu.mywanandroid.data.intercepter.CacheInterceptor
+import com.franmontiel.persistentcookiejar.PersistentCookieJar
+import com.franmontiel.persistentcookiejar.cache.SetCookieCache
+import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import rx.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
+
 /**
- *
  * @author Chengyu Yang
- * @date 2018/7/20
- *
+ * @date 2019/9/9
  */
 
 object RetrofitFactory {
 
     private val mRetrofit: Retrofit
     private val mInterceptor: Interceptor
+
+    //cookie持久化
+    private val cookieJar by lazy {
+        PersistentCookieJar(
+            SetCookieCache(),
+            SharedPrefsCookiePersistor(WanApplication.context)
+        )
+    }
 
     //登陆服务
     internal val loginService by lazy {
@@ -43,7 +55,7 @@ object RetrofitFactory {
         mRetrofit = Retrofit.Builder()
             .baseUrl(BaseConstant.SERVER_ADDRESS)
             .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+            .addCallAdapterFactory(RxJavaCallAdapterFactory.createWithScheduler(Schedulers.io()))
             .client(initClient())
             .build()
     }
@@ -53,6 +65,7 @@ object RetrofitFactory {
      */
     private fun initClient(): OkHttpClient {
         return OkHttpClient.Builder()
+            .cookieJar(cookieJar)
             .addInterceptor(initLogInterceptor())
             .addInterceptor(CacheInterceptor())
             .addInterceptor(mInterceptor)

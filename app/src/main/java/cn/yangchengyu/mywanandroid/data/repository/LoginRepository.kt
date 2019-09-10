@@ -12,12 +12,14 @@ import cn.yangchengyu.mywanandroid.data.model.WanResponse
  */
 class LoginRepository : BaseRepository() {
 
+    //登陆
     suspend fun login(userName: String, passWord: String): WanResponse<UserInfo> {
         return apiCall {
             RetrofitFactory.loginService.login(userName, passWord)
         }
     }
 
+    //注册
     suspend fun register(userName: String, passWord: String): WanResponse<UserInfo> {
         return apiCall {
             RetrofitFactory.loginService.register(userName, passWord, passWord)
