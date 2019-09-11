@@ -3,6 +3,8 @@ package cn.yangchengyu.mywanandroid.base
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.blankj.utilcode.util.LogUtils
+import com.blankj.utilcode.util.ToastUtils
 
 /**
  * Desc  : ViewModel Activity
@@ -39,7 +41,11 @@ abstract class BaseViewModelActivity<V : BaseViewModel> : BaseActivity() {
     }
 
     open fun onError(e: Throwable) {
+        dismissProgressDialog()
 
+        ToastUtils.showLong("连接出错")
+
+        LogUtils.w(e)
     }
 
     override fun onDestroy() {

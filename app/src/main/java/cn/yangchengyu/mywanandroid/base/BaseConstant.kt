@@ -6,5 +6,7 @@ class BaseConstant {
         const val SERVER_ADDRESS = "https://www.wanandroid.com"
         //SP表名
         const val TABLE_PREFS = "my_wan_android"
+        //Token Key
+        const val KEY_SP_TOKEN = "token"
     }
 }
