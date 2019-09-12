@@ -25,4 +25,11 @@ class LoginRepository : BaseRepository() {
             RetrofitFactory.loginService.register(userName, passWord, passWord)
         }
     }
+
+    //登出
+    suspend fun logout(): WanResponse<Nothing> {
+        return apiCall {
+            RetrofitFactory.loginService.logout()
+        }
+    }
 }

@@ -64,11 +64,11 @@ class LoginActivity : BaseViewModelActivity<LoginViewModel>() {
                 //保存用户信息
                 UserPrefsUtils.putUserInfo(it)
 
-                dismissProgressDialog()
-
                 ToastUtils.showShort(R.string.loginSuccess)
 
                 EventBus.getDefault().post(LoginSuccess())
+
+                dismissProgressDialog()
 
                 finish()
             })

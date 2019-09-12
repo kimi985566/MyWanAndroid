@@ -30,5 +30,5 @@ interface WanLoginService {
     ): WanResponse<UserInfo>
 
     @GET("/user/logout/json")
-    suspend fun logout(): WanResponse<Any>
+    suspend fun logout(): WanResponse<Nothing>
 }

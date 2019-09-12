@@ -14,6 +14,8 @@ import cn.yangchengyu.mywanandroid.base.AppManager
 import cn.yangchengyu.mywanandroid.base.BaseActivity
 import cn.yangchengyu.mywanandroid.base.ProviderConstant
 import cn.yangchengyu.mywanandroid.data.model.LoginSuccess
+import cn.yangchengyu.mywanandroid.data.repository.LoginRepository
+import cn.yangchengyu.mywanandroid.ext.executeResponse
 import cn.yangchengyu.mywanandroid.ext.onClick
 import cn.yangchengyu.mywanandroid.utils.AppPrefsUtils
 import cn.yangchengyu.mywanandroid.utils.ImageLoader
@@ -22,6 +24,10 @@ import com.blankj.utilcode.util.SnackbarUtils
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_toolbar.view.*
 import kotlinx.android.synthetic.main.view_nav_header_main.view.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -218,14 +224,37 @@ class MainActivity : BaseActivity() {
         }
     }
 
+    /**
+     * 登出
+     * */
     private fun logout() {
         AlertDialog.Builder(this)
             .setMessage("是否确认退出登录？")
             .setPositiveButton("确定") { _, _ ->
-                //登出
-                UserPrefsUtils.putUserInfo(null)
-                //设置Drawer状态
-                initNavigationViewLogState()
+                GlobalScope.launch {
+                    executeResponse(
+                        //logout response
+                        withContext(Dispatchers.IO) {
+                            LoginRepository().logout()
+                        },
+                        //success
+                        {
+                            withContext(Dispatchers.Main) {
+                                //登出
+                                UserPrefsUtils.putUserInfo(null)
+                                //设置Drawer状态（UI操作需要在主线程）
+                                initNavigationViewLogState()
+                            }
+                        },
+                        //error
+                        {
+                            withContext(Dispatchers.Main) {
+                                //UI操作需要在主线程
+                                toast("登出失败")
+                            }
+                        }
+                    )
+                }
             }
             .setNegativeButton("取消") { _, _ ->
 
