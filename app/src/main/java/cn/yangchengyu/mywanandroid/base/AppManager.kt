@@ -1,10 +1,7 @@
 package cn.yangchengyu.mywanandroid.base
 
 import android.app.Activity
-import android.app.ActivityManager
-import android.content.Context
 import java.util.*
-import kotlin.system.exitProcess
 
 object AppManager {
 
@@ -37,7 +34,7 @@ object AppManager {
      * 清理栈
      * */
     private fun finishAllActivity() {
-        for (activity in activityStack) {
+        activityStack.forEach { activity ->
             activity.finish()
         }
         activityStack.clear()
@@ -46,10 +43,7 @@ object AppManager {
     /**
      * 退出应用程序
      * */
-    fun exitApp(context: Context) {
+    fun exitApp() {
         finishAllActivity()
-        val activityManager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-        activityManager.killBackgroundProcesses(context.packageName)
-        exitProcess(0)
     }
 }

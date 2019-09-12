@@ -3,6 +3,7 @@ package cn.yangchengyu.mywanandroid.ui.activity
 import androidx.lifecycle.Observer
 import cn.yangchengyu.mywanandroid.R
 import cn.yangchengyu.mywanandroid.base.BaseViewModelActivity
+import cn.yangchengyu.mywanandroid.data.model.LoginSuccess
 import cn.yangchengyu.mywanandroid.ext.enable
 import cn.yangchengyu.mywanandroid.ext.onClick
 import cn.yangchengyu.mywanandroid.utils.UserPrefsUtils
@@ -11,6 +12,7 @@ import com.blankj.utilcode.util.SnackbarUtils
 import com.blankj.utilcode.util.ToastUtils
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.layout_toolbar.view.*
+import org.greenrobot.eventbus.EventBus
 import org.jetbrains.anko.startActivity
 
 /**
@@ -65,6 +67,8 @@ class LoginActivity : BaseViewModelActivity<LoginViewModel>() {
                 dismissProgressDialog()
 
                 ToastUtils.showShort(R.string.loginSuccess)
+
+                EventBus.getDefault().post(LoginSuccess())
 
                 finish()
             })

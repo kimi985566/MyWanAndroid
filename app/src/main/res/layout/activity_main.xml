@@ -24,10 +24,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Hello World!"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/mainNavigationView"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/mainToolBar" />
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/mainNavigationView"
+            style="@style/Widget.Design.BottomNavigationView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/common_white"
+            app:itemIconSize="30dp"
+            app:itemIconTint="@drawable/selector_navigation_item_color"
+            app:itemTextColor="@drawable/selector_navigation_item_color"
+            app:labelVisibilityMode="unlabeled"
+            app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:menu="@menu/menu_navigation_bottom" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -37,7 +53,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        app:headerLayout="@layout/nav_header_main"
-        app:menu="@menu/activity_main_drawer" />
+        app:headerLayout="@layout/view_nav_header_main"
+        app:menu="@menu/menu_main_drawer" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

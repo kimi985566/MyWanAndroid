@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/WrapWrap.Vertical"
-    android:background="@drawable/progress_dialog_bg"
+    android:background="@drawable/bg_progress_dialog"
     android:gravity="center"
     android:padding="25dp">
 
@@ -15,7 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/animated_splash_logo" />
+        app:srcCompat="@drawable/animated_vector_splash_logo" />
 
     <TextView
         android:id="@+id/tv_loading"

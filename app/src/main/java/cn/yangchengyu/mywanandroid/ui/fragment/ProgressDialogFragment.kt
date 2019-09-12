@@ -61,7 +61,7 @@ class ProgressDialogFragment : DialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         //Dialog的布局样式
-        return inflater.inflate(R.layout.progress_dialog, container, false)
+        return inflater.inflate(R.layout.view_progress_dialog, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -79,7 +79,7 @@ class ProgressDialogFragment : DialogFragment() {
         }
 
         animatedVectorDrawableCompat =
-            AnimatedVectorDrawableCompat.create(context!!, R.drawable.animated_splash_logo)
+            AnimatedVectorDrawableCompat.create(context!!, R.drawable.animated_vector_splash_logo)
 
         imageView.apply {
             setImageDrawable(animatedVectorDrawableCompat)
