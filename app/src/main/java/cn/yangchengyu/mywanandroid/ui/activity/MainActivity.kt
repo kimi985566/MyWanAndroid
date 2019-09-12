@@ -17,6 +17,7 @@ import cn.yangchengyu.mywanandroid.data.model.LoginSuccess
 import cn.yangchengyu.mywanandroid.data.repository.LoginRepository
 import cn.yangchengyu.mywanandroid.ext.executeResponse
 import cn.yangchengyu.mywanandroid.ext.onClick
+import cn.yangchengyu.mywanandroid.ext.tryCatchLaunch
 import cn.yangchengyu.mywanandroid.utils.AppPrefsUtils
 import cn.yangchengyu.mywanandroid.utils.ImageLoader
 import cn.yangchengyu.mywanandroid.utils.UserPrefsUtils
@@ -25,8 +26,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_toolbar.view.*
 import kotlinx.android.synthetic.main.view_nav_header_main.view.*
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -231,7 +230,7 @@ class MainActivity : BaseActivity() {
         AlertDialog.Builder(this)
             .setMessage("是否确认退出登录？")
             .setPositiveButton("确定") { _, _ ->
-                GlobalScope.launch {
+                tryCatchLaunch({
                     executeResponse(
                         //logout response
                         withContext(Dispatchers.IO) {
@@ -239,22 +238,27 @@ class MainActivity : BaseActivity() {
                         },
                         //success
                         {
-                            withContext(Dispatchers.Main) {
-                                //登出
-                                UserPrefsUtils.putUserInfo(null)
-                                //设置Drawer状态（UI操作需要在主线程）
-                                initNavigationViewLogState()
-                            }
+                            //登出
+                            UserPrefsUtils.putUserInfo(null)
+                            //设置Drawer状态
+                            initNavigationViewLogState()
+                            //登出
+                            SnackbarUtils.with(mainNavigationView)
+                                .setMessage("登出成功")
+                                .showSuccess()
                         },
                         //error
                         {
-                            withContext(Dispatchers.Main) {
-                                //UI操作需要在主线程
-                                toast("登出失败")
-                            }
+                            SnackbarUtils.with(mainNavigationView)
+                                .setMessage("登出失败")
+                                .showWarning()
                         }
                     )
-                }
+                }, {
+                    SnackbarUtils.with(mainNavigationView)
+                        .setMessage("登出错误")
+                        .showError()
+                })
             }
             .setNegativeButton("取消") { _, _ ->
 

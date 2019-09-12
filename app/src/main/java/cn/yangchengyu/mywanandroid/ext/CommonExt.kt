@@ -5,8 +5,10 @@ import android.widget.Button
 import android.widget.EditText
 import cn.yangchengyu.mywanandroid.data.model.WanResponse
 import cn.yangchengyu.mywanandroid.utils.DefaultTextWatcher
+import com.blankj.utilcode.util.LogUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.runBlocking
 
 /**
  * Desc  : 扩展方法
@@ -55,4 +57,20 @@ fun Button.enable(et: EditText, method: () -> Boolean) {
             this@enable.isEnabled = method()
         }
     })
+}
+
+fun tryCatchLaunch(
+    tryBlock: suspend CoroutineScope.() -> Unit,
+    catchBlock: suspend CoroutineScope.() -> Unit
+) {
+    runBlocking {
+        coroutineScope {
+            try {
+                tryBlock()
+            } catch (e: Exception) {
+                LogUtils.e(e)
+                catchBlock()
+            }
+        }
+    }
 }
