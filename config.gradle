@@ -32,7 +32,7 @@ ext {
 
             //appcompat
             "appcompat"                    : "androidx.appcompat:appcompat:${dependVersion.appcompat}",
-            "multidex"                     : "com.android.support:multidex:1.0.3",
+            "multidex"                     : "androidx.multidex:multidex:2.0.1",
 
             //legacy
             "legacy_support"               : "androidx.legacy:legacy-support-v4:${dependVersion.legacy_support}",
@@ -49,8 +49,6 @@ ext {
 
             //lifecycle
             "lifecycle-extensions"         : "androidx.lifecycle:lifecycle-extensions:${dependVersion.lifecycle}",
-            "lifecycle-viewmodel-ktx"      : "androidx.lifecycle:lifecycle-viewmodel-ktx:${dependVersion.lifecycle}",
-            "lifecycle-livedata-ktx"       : "androidx.lifecycle:lifecycle-livedata-ktx:${dependVersion.lifecycle}",
 
             //coroutines
             "kotlinx-coroutines-android"   : "org.jetbrains.kotlinx:kotlinx-coroutines-android:${dependVersion.coroutinesVersion}",

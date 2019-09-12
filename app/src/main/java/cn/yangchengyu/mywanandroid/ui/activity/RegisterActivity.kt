@@ -10,6 +10,7 @@ import com.blankj.utilcode.util.SnackbarUtils
 import com.blankj.utilcode.util.ToastUtils
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_register.*
+import kotlinx.android.synthetic.main.layout_toolbar.view.*
 import org.jetbrains.anko.clearTop
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.singleTop
@@ -28,11 +29,16 @@ class RegisterActivity : BaseViewModelActivity<LoginViewModel>() {
 
     override fun provideViewModelClass(): Class<LoginViewModel>? = LoginViewModel::class.java
 
-    override fun initView() {
-        registerToolBar.title = getString(R.string.register)
-        registerToolBar.setNavigationIcon(R.drawable.arrow_back)
-        registerToolBar.setNavigationOnClickListener { onBackPressed() }
+    override fun initTitle() {
+        setSupportActionBar(registerToolBar.toolbar)
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+        }
+        registerToolBar.toolbar.setNavigationOnClickListener { onBackPressed() }
+        registerToolBar.toolbar.title = getString(R.string.register)
+    }
 
+    override fun initView() {
         registerButton.enable(registerUserName.editText!!) { checkInput() }
         registerButton.enable(registerPassWord.editText!!) { checkInput() }
     }
@@ -53,6 +59,7 @@ class RegisterActivity : BaseViewModelActivity<LoginViewModel>() {
 
                 ToastUtils.showShort(R.string.registerSuccess)
 
+                //启动登陆页
                 startActivity(intentFor<LoginActivity>().singleTop().clearTop())
             })
 

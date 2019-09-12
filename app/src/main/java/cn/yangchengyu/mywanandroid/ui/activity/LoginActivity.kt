@@ -10,7 +10,8 @@ import cn.yangchengyu.mywanandroid.viewmodels.LoginViewModel
 import com.blankj.utilcode.util.SnackbarUtils
 import com.blankj.utilcode.util.ToastUtils
 import kotlinx.android.synthetic.main.activity_login.*
-import org.jetbrains.anko.intentFor
+import kotlinx.android.synthetic.main.layout_toolbar.view.*
+import org.jetbrains.anko.startActivity
 
 /**
  * Desc  : 登陆页
@@ -27,11 +28,17 @@ class LoginActivity : BaseViewModelActivity<LoginViewModel>() {
 
     override fun provideViewModelClass(): Class<LoginViewModel>? = LoginViewModel::class.java
 
-    override fun initView() {
-        loginToolBar.title = getString(R.string.login)
-        loginToolBar.setNavigationIcon(R.drawable.arrow_back)
-        loginToolBar.setNavigationOnClickListener { onBackPressed() }
+    override fun initTitle() {
+        setSupportActionBar(loginToolBar.toolbar)
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+        }
 
+        loginToolBar.toolbar.setNavigationOnClickListener { onBackPressed() }
+        loginToolBar.toolbar.title = getString(R.string.login)
+    }
+
+    override fun initView() {
         loginButton.enable(loginUserName.editText!!) { checkInput() }
         loginButton.enable(loginPassWord.editText!!) { checkInput() }
     }
@@ -43,7 +50,7 @@ class LoginActivity : BaseViewModelActivity<LoginViewModel>() {
         }
 
         loginRegisterText.onClick {
-            startActivity(intentFor<RegisterActivity>())
+            startActivity<RegisterActivity>()
         }
     }
 
@@ -52,6 +59,7 @@ class LoginActivity : BaseViewModelActivity<LoginViewModel>() {
 
         viewModel.apply {
             loginUser.observe(this@LoginActivity, Observer {
+                //保存用户信息
                 UserPrefsUtils.putUserInfo(it)
 
                 dismissProgressDialog()

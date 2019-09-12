@@ -25,6 +25,8 @@ abstract class BaseActivity : AppCompatActivity(), LifecycleObserver {
 
         //设置布局
         setContentView(getLayoutResId())
+        //设置标题
+        initTitle()
         //设置View
         initView()
         //获取数据
@@ -46,6 +48,9 @@ abstract class BaseActivity : AppCompatActivity(), LifecycleObserver {
 
     //布局Id
     abstract fun getLayoutResId(): Int
+
+    //设置标题
+    abstract fun initTitle()
 
     //加载View
     abstract fun initView()

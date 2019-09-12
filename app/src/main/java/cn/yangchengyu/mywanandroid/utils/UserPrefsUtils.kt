@@ -16,6 +16,6 @@ object UserPrefsUtils {
     }
 
     fun isLogined(): Boolean {
-        return AppPrefsUtils.getString(BaseConstant.KEY_SP_TOKEN).isNotEmpty()
+        return AppPrefsUtils.getInt(BaseConstant.KEY_SP_TOKEN) != -1
     }
 }

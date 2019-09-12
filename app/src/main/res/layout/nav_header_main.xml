@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/common_collapsing_full_height"
+    android:background="?attr/colorPrimary"
+    android:gravity="bottom"
+    android:orientation="vertical"
+    android:padding="@dimen/common_padding_large"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/navHeaderIcon"
+        android:layout_width="@dimen/common_icon_width"
+        android:layout_height="@dimen/common_icon_height"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/navHeaderUserName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/common_margin"
+        android:textColor="@color/common_white"
+        android:textSize="@dimen/text_large_size"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/navHeaderBio"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/navHeaderIcon"
+        app:layout_constraintTop_toTopOf="@+id/navHeaderIcon"
+        tools:text="UserName" />
+
+    <TextView
+        android:id="@+id/navHeaderBio"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/common_margin"
+        android:textColor="@color/common_white"
+        android:textSize="@dimen/text_middle_size"
+        app:layout_constraintBottom_toBottomOf="@+id/navHeaderIcon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/navHeaderIcon"
+        app:layout_constraintTop_toBottomOf="@+id/navHeaderUserName"
+        tools:text="Bio" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

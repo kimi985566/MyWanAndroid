@@ -4,6 +4,7 @@ import cn.yangchengyu.mywanandroid.data.model.UserInfo
 import cn.yangchengyu.mywanandroid.data.model.WanResponse
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
+import retrofit2.http.GET
 import retrofit2.http.POST
 
 /**
@@ -27,4 +28,7 @@ interface WanLoginService {
         @Field("password") passWord: String,
         @Field("repassword") rePassWord: String
     ): WanResponse<UserInfo>
+
+    @GET("/user/logout/json")
+    suspend fun logout(): WanResponse<Any>
 }
