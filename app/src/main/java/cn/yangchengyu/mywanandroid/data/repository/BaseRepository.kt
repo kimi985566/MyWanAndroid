@@ -1,4 +1,4 @@
-package cn.yangchengyu.mywanandroid.data.api
+package cn.yangchengyu.mywanandroid.data.repository
 
 import androidx.lifecycle.LifecycleObserver
 import cn.yangchengyu.mywanandroid.data.model.WanResponse
