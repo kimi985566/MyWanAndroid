@@ -71,7 +71,7 @@ fun tryCatchLaunch(
             try {
                 tryBlock()
             } catch (e: Exception) {
-                LogUtils.e(e)
+                LogUtils.e(this.coroutineContext.javaClass.simpleName + " " + e.toString())
                 catchBlock()
             }
         }

@@ -2,6 +2,7 @@ package cn.yangchengyu.mywanandroid.data
 
 import cn.yangchengyu.mywanandroid.WanApplication
 import cn.yangchengyu.mywanandroid.base.BaseConstant
+import cn.yangchengyu.mywanandroid.data.api.WanHomeService
 import cn.yangchengyu.mywanandroid.data.api.WanLoginService
 import cn.yangchengyu.mywanandroid.data.intercepter.CacheInterceptor
 import com.franmontiel.persistentcookiejar.PersistentCookieJar
@@ -30,8 +31,8 @@ object RetrofitFactory {
     //cookie持久化
     private val cookieJar by lazy {
         PersistentCookieJar(
-            SetCookieCache(),
-            SharedPrefsCookiePersistor(WanApplication.context)
+                SetCookieCache(),
+                SharedPrefsCookiePersistor(WanApplication.context)
         )
     }
 
@@ -40,24 +41,29 @@ object RetrofitFactory {
         create(WanLoginService::class.java)
     }
 
+    //首页服务
+    internal val homeService by lazy {
+        create(WanHomeService::class.java)
+    }
+
     init {
         //通用拦截
         mInterceptor = Interceptor { chain ->
             val request = chain.request()
-                .newBuilder()
-                .addHeader("Content_Type", "application/json")
-                .addHeader("charset", "UTF-8")
-                .build()
+                    .newBuilder()
+                    .addHeader("Content_Type", "application/json")
+                    .addHeader("charset", "UTF-8")
+                    .build()
 
             chain.proceed(request)
         }
 
         mRetrofit = Retrofit.Builder()
-            .baseUrl(BaseConstant.SERVER_ADDRESS)
-            .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJavaCallAdapterFactory.createWithScheduler(Schedulers.io()))
-            .client(initClient())
-            .build()
+                .baseUrl(BaseConstant.SERVER_ADDRESS)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.createWithScheduler(Schedulers.io()))
+                .client(initClient())
+                .build()
     }
 
     /**
@@ -65,13 +71,13 @@ object RetrofitFactory {
      */
     private fun initClient(): OkHttpClient {
         return OkHttpClient.Builder()
-            .cookieJar(cookieJar)
-            .addInterceptor(initLogInterceptor())
-            .addInterceptor(CacheInterceptor())
-            .addInterceptor(mInterceptor)
-            .connectTimeout(10, TimeUnit.SECONDS)
-            .readTimeout(10, TimeUnit.SECONDS)
-            .build()
+                .cookieJar(cookieJar)
+                .addInterceptor(initLogInterceptor())
+                .addInterceptor(CacheInterceptor())
+                .addInterceptor(mInterceptor)
+                .connectTimeout(10, TimeUnit.SECONDS)
+                .readTimeout(10, TimeUnit.SECONDS)
+                .build()
     }
 
     /**

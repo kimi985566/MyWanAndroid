@@ -1,7 +1,6 @@
 package cn.yangchengyu.mywanandroid.data.repository
 
 import cn.yangchengyu.mywanandroid.data.RetrofitFactory
-import cn.yangchengyu.mywanandroid.data.api.BaseRepository
 import cn.yangchengyu.mywanandroid.data.model.UserInfo
 import cn.yangchengyu.mywanandroid.data.model.WanResponse
 
