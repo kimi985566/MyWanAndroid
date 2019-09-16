@@ -59,6 +59,9 @@ fun Button.enable(et: EditText, method: () -> Boolean) {
     })
 }
 
+/**
+ * try catch的协程
+ * */
 fun tryCatchLaunch(
     tryBlock: suspend CoroutineScope.() -> Unit,
     catchBlock: suspend CoroutineScope.() -> Unit
