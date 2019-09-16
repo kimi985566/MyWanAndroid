@@ -41,7 +41,9 @@ abstract class BaseViewModelActivity<V : BaseViewModel> : BaseActivity() {
     }
 
     open fun onError(e: Throwable) {
-        dismissProgressDialog()
+        if (progressDialog.isVisible) {
+            dismissProgressDialog()
+        }
 
         ToastUtils.showLong("连接出错")
 

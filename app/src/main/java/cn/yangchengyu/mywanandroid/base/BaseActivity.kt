@@ -13,7 +13,7 @@ import cn.yangchengyu.mywanandroid.ui.fragment.ProgressDialogFragment
 
 abstract class BaseActivity : AppCompatActivity(), LifecycleObserver {
 
-    private val progressDialog: ProgressDialogFragment by lazy {
+    protected val progressDialog: ProgressDialogFragment by lazy {
         ProgressDialogFragment.newInstance(
             "加载中"
         )

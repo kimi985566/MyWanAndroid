@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/common_white"
+    android:paddingLeft="20dp"
+    android:paddingTop="10dp"
+    android:paddingRight="20dp"
+    android:paddingBottom="10dp">
+
+    <ImageView
+        android:id="@+id/articleIcon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/ic_user"
+        app:layout_constraintBottom_toTopOf="@+id/articleTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/articleAuthor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:textColor="@color/text_dark"
+        android:textSize="@dimen/text_small_size"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/articleIcon"
+        app:layout_constraintStart_toEndOf="@+id/articleIcon"
+        app:layout_constraintTop_toTopOf="@+id/articleIcon"
+        tools:text="Author" />
+
+    <TextView
+        android:id="@+id/articleTag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:textColor="@color/text_dark"
+        android:textSize="@dimen/text_small_size"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/articleAuthor"
+        app:layout_constraintStart_toEndOf="@+id/articleAuthor"
+        app:layout_constraintTop_toTopOf="@+id/articleAuthor"
+        tools:text="Android" />
+
+    <TextView
+        android:id="@+id/articleTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:ellipsize="end"
+        android:maxLines="3"
+        android:textColor="@color/text_dark_black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/articleTimeIcon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/articleIcon"
+        tools:text="标题" />
+
+    <ImageView
+        android:id="@+id/articleTimeIcon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/ic_time"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/articleTitle" />
+
+    <TextView
+        android:id="@+id/articleTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:textColor="@color/text_dark"
+        android:textSize="@dimen/text_small_size"
+        app:layout_constraintBottom_toBottomOf="@+id/articleTimeIcon"
+        app:layout_constraintStart_toEndOf="@+id/articleTimeIcon"
+        app:layout_constraintTop_toTopOf="@+id/articleTimeIcon"
+        tools:text="1小时前" />
+
+    <ImageView
+        android:id="@+id/articleStar"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="20dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:src="@drawable/ic_like_normal"
+        app:layout_constraintBottom_toBottomOf="@+id/articleTime"
+        app:layout_constraintStart_toEndOf="@+id/articleTime"
+        app:layout_constraintTop_toTopOf="@+id/articleTime" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,5 @@
 package cn.yangchengyu.mywanandroid.ui.activity
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.Menu
@@ -18,6 +17,7 @@ import cn.yangchengyu.mywanandroid.data.repository.LoginRepository
 import cn.yangchengyu.mywanandroid.ext.executeResponse
 import cn.yangchengyu.mywanandroid.ext.onClick
 import cn.yangchengyu.mywanandroid.ext.tryCatchLaunch
+import cn.yangchengyu.mywanandroid.ui.fragment.HomeFragment
 import cn.yangchengyu.mywanandroid.utils.AppPrefsUtils
 import cn.yangchengyu.mywanandroid.utils.ImageLoader
 import cn.yangchengyu.mywanandroid.utils.UserPrefsUtils
@@ -37,6 +37,8 @@ class MainActivity : BaseActivity() {
 
     private var pressTime: Long = 0
 
+    private val homeFragment by lazy { HomeFragment.newInstance() }
+
     override fun getLayoutResId(): Int = R.layout.activity_main
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,16 +55,6 @@ class MainActivity : BaseActivity() {
         initDrawerLayout()
         //设置底部导航
         initBottomNavigation()
-
-        text.onClick {
-            if (UserPrefsUtils.isLogined()) {
-                SnackbarUtils.with(text)
-                    .setMessage("已登录")
-                    .showSuccess()
-            } else {
-                startActivity(Intent(this, LoginActivity::class.java))
-            }
-        }
     }
 
     override fun initData() {
@@ -203,7 +195,9 @@ class MainActivity : BaseActivity() {
             setOnNavigationItemSelectedListener {
                 when (it.itemId) {
                     R.id.navigation_home -> {
-                        toast(getString(R.string.navigation_home))
+                        supportFragmentManager.beginTransaction()
+                            .replace(R.id.mainContainer, homeFragment)
+                            .commit()
                     }
                     R.id.navigation_wechat -> {
                         toast(getString(R.string.navigation_wechat))
