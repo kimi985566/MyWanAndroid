@@ -47,8 +47,7 @@ class HomeFragment : BaseViewModelFragment<HomeViewModel>() {
     }
 
     override fun initData() {
-        //获取Banner数据
-        viewModel.getBanner()
+        homeRefreshLayout.isRefreshing = true
         //获取文章数据
         refreshData()
     }
@@ -85,8 +84,9 @@ class HomeFragment : BaseViewModelFragment<HomeViewModel>() {
         homeRecycleView.run {
             layoutManager = LinearLayoutManager(activity)
             adapter = homeArticleAdapter.apply {
-                addHeaderView(banner)
+                //加载更多View
                 setLoadMoreView(CustomLoadMoreView())
+                //加载更多监听
                 setOnLoadMoreListener({ loadMore() }, homeRecycleView)
             }
         }
@@ -100,10 +100,14 @@ class HomeFragment : BaseViewModelFragment<HomeViewModel>() {
     }
 
     private fun refreshData() {
-        homeArticleAdapter.setEnableLoadMore(false)
         homeRefreshLayout.isRefreshing = true
         currentPage = 0
+        homeArticleAdapter.setEnableLoadMore(false)
+
+        //获取文章数据
         viewModel.getArticleList(currentPage)
+        //获取Banner数据
+        viewModel.getBanner()
     }
 
     private fun loadMore() {
@@ -112,8 +116,7 @@ class HomeFragment : BaseViewModelFragment<HomeViewModel>() {
 
     private fun setBanner(bannerList: List<Banner>) {
         for (banner in bannerList) {
-            if (!TextUtils.isEmpty(banner.imagePath)
-                && !TextUtils.isEmpty(banner.title)
+            if (!TextUtils.isEmpty(banner.imagePath) && !TextUtils.isEmpty(banner.title)
                 && !TextUtils.isEmpty(banner.url)
             ) {
                 bannerImages.add(banner.imagePath!!)
@@ -122,23 +125,36 @@ class HomeFragment : BaseViewModelFragment<HomeViewModel>() {
             }
         }
 
-        banner.apply {
-            setImages(bannerImages)
-            setBannerTitles(bannerTitles)
-            setDelayTime(3000)
-        }.start()
+        if (bannerImages.isNotEmpty()) {
+            //设置Banner
+            banner.apply {
+                setImages(bannerImages)
+                setBannerTitles(bannerTitles)
+                setDelayTime(3000)
+                start()
+            }
+
+            //加载列表HeaderView
+            homeArticleAdapter.addHeaderView(banner)
+        }
     }
 
     private fun setArticles(articleList: ArticleList) {
         homeArticleAdapter.run {
             if (!articleList.datas.isNullOrEmpty()) {
-                if (homeRefreshLayout.isRefreshing) {
+                if (currentPage == 0) {
+                    //刷新，首次加载
                     replaceData(articleList.datas!!)
                 } else {
+                    //加载更多
                     addData(articleList.datas!!)
                 }
+
+                //adapter允许加载更多
                 setEnableLoadMore(true)
+                //加载完成
                 loadMoreComplete()
+
                 currentPage++
             }
         }

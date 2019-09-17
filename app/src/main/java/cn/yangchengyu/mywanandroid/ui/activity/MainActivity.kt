@@ -21,6 +21,7 @@ import cn.yangchengyu.mywanandroid.ui.fragment.HomeFragment
 import cn.yangchengyu.mywanandroid.utils.AppPrefsUtils
 import cn.yangchengyu.mywanandroid.utils.ImageLoader
 import cn.yangchengyu.mywanandroid.utils.UserPrefsUtils
+import com.blankj.utilcode.util.FragmentUtils
 import com.blankj.utilcode.util.SnackbarUtils
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_toolbar.view.*
@@ -36,6 +37,8 @@ import org.jetbrains.anko.toast
 class MainActivity : BaseActivity() {
 
     private var pressTime: Long = 0
+
+    private var tabIndex = 0
 
     private val homeFragment by lazy { HomeFragment.newInstance() }
 
@@ -55,6 +58,10 @@ class MainActivity : BaseActivity() {
         initDrawerLayout()
         //设置底部导航
         initBottomNavigation()
+
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.mainContainer, homeFragment)
+            .commit()
     }
 
     override fun initData() {
@@ -200,21 +207,30 @@ class MainActivity : BaseActivity() {
                             .commit()
                     }
                     R.id.navigation_wechat -> {
+                        tabIndex = 1
                         toast(getString(R.string.navigation_wechat))
                     }
                     R.id.navigation_project -> {
+                        tabIndex = 2
                         toast(getString(R.string.navigation_project))
                     }
                     R.id.navigation_navigation -> {
+                        tabIndex = 3
                         toast(getString(R.string.navigation_navigation))
                     }
                     R.id.navigation_knowledge_tree -> {
+                        tabIndex = 4
                         toast(getString(R.string.navigation_knowledge_tree))
                     }
                 }
+                showFragmentByIndex(tabIndex)
                 true
             }
         }
+    }
+
+    private fun showFragmentByIndex(tabIndex: Int) {
+
     }
 
     /**
