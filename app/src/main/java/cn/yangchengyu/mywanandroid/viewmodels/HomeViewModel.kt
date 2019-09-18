@@ -24,9 +24,9 @@ class HomeViewModel : BaseViewModel() {
             }
 
             executeResponse(
-                    bannerResponse,
-                    { banners.value = bannerResponse.data },
-                    { errorMsg.value = bannerResponse.errorMsg }
+                bannerResponse,
+                { banners.postValue(bannerResponse.data) },
+                { errorMsg.postValue(bannerResponse.errorMsg) }
             )
         }
     }
@@ -38,9 +38,9 @@ class HomeViewModel : BaseViewModel() {
             }
 
             executeResponse(
-                    articleResponse,
-                    { articleList.value = articleResponse.data },
-                    { errorMsg.value = articleResponse.errorMsg }
+                articleResponse,
+                { articleList.postValue(articleResponse.data) },
+                { errorMsg.postValue(articleResponse.errorMsg) }
             )
         }
     }

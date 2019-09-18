@@ -38,8 +38,8 @@ class LoginViewModel : BaseViewModel() {
             //处理数据
             executeResponse(
                 loginResponse,
-                { loginUser.value = loginResponse.data },
-                { errorMsg.value = loginResponse.errorMsg }
+                { loginUser.postValue(loginResponse.data) },
+                { errorMsg.postValue(loginResponse.errorMsg) }
             )
         }
     }
@@ -60,8 +60,8 @@ class LoginViewModel : BaseViewModel() {
             //处理数据
             executeResponse(
                 registerResponse,
-                { registerUser.value = registerResponse.data },
-                { errorMsg.value = registerResponse.errorMsg }
+                { registerUser.postValue(registerResponse.data) },
+                { errorMsg.postValue(registerResponse.errorMsg) }
             )
         }
     }
