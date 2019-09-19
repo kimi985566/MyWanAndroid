@@ -11,8 +11,8 @@ import kotlinx.coroutines.withContext
 
 class HomeViewModel : BaseViewModel() {
 
-    var articleList: MutableLiveData<ArticleList> = MutableLiveData()
-    var banners: MutableLiveData<List<Banner>> = MutableLiveData()
+    val articleList: MutableLiveData<ArticleList> by lazy { MutableLiveData<ArticleList>() }
+    val banners: MutableLiveData<List<Banner>> by lazy { MutableLiveData<List<Banner>>() }
     val errorMsg: MutableLiveData<String> by lazy { MutableLiveData<String>() }
 
     private val repository by lazy { HomeRepository() }

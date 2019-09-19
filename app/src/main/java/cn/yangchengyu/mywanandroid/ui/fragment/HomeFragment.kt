@@ -13,6 +13,7 @@ import cn.yangchengyu.mywanandroid.utils.BannerImageLoader
 import cn.yangchengyu.mywanandroid.view.CustomLoadMoreView
 import cn.yangchengyu.mywanandroid.viewmodels.HomeViewModel
 import com.blankj.utilcode.util.SizeUtils
+import com.example.ycy.baselibrary.ui.other.VerticalSpacesItemDecoration
 import com.youth.banner.BannerConfig
 import kotlinx.android.synthetic.main.fragment_home.*
 
@@ -27,6 +28,8 @@ class HomeFragment : BaseViewModelFragment<HomeViewModel>() {
     private val banner by lazy { com.youth.banner.Banner(activity) }
 
     private var currentPage = 0
+
+    private var hasLoadBanner = false
 
     companion object {
         @JvmStatic
@@ -82,6 +85,7 @@ class HomeFragment : BaseViewModelFragment<HomeViewModel>() {
 
     private fun initRecyclerView() {
         homeRecycleView.run {
+            addItemDecoration(VerticalSpacesItemDecoration(10))
             layoutManager = LinearLayoutManager(activity)
             adapter = homeArticleAdapter.apply {
                 //加载更多View
@@ -115,6 +119,8 @@ class HomeFragment : BaseViewModelFragment<HomeViewModel>() {
     }
 
     private fun setBanner(bannerList: List<Banner>) {
+        if (hasLoadBanner) return
+
         for (banner in bannerList) {
             if (!TextUtils.isEmpty(banner.imagePath) && !TextUtils.isEmpty(banner.title)
                 && !TextUtils.isEmpty(banner.url)
@@ -136,6 +142,8 @@ class HomeFragment : BaseViewModelFragment<HomeViewModel>() {
 
             //加载列表HeaderView
             homeArticleAdapter.addHeaderView(banner)
+
+            hasLoadBanner = true
         }
     }
 

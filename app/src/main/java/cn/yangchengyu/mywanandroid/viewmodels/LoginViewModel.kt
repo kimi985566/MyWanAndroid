@@ -16,8 +16,8 @@ import kotlinx.coroutines.withContext
 
 class LoginViewModel : BaseViewModel() {
 
-    var loginUser: MutableLiveData<UserInfo> = MutableLiveData()
-    var registerUser: MutableLiveData<UserInfo> = MutableLiveData()
+    val loginUser: MutableLiveData<UserInfo> by lazy { MutableLiveData<UserInfo>() }
+    val registerUser: MutableLiveData<UserInfo> by lazy { MutableLiveData<UserInfo>() }
     val errorMsg: MutableLiveData<String> by lazy { MutableLiveData<String>() }
 
     private val repository by lazy { LoginRepository() }
