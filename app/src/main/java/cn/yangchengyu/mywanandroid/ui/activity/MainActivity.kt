@@ -21,7 +21,6 @@ import cn.yangchengyu.mywanandroid.ui.fragment.HomeFragment
 import cn.yangchengyu.mywanandroid.utils.AppPrefsUtils
 import cn.yangchengyu.mywanandroid.utils.ImageLoader
 import cn.yangchengyu.mywanandroid.utils.UserPrefsUtils
-import com.blankj.utilcode.util.FragmentUtils
 import com.blankj.utilcode.util.SnackbarUtils
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_toolbar.view.*
@@ -50,7 +49,9 @@ class MainActivity : BaseActivity() {
     }
 
     override fun initTitle() {
-        setSupportActionBar(mainToolBar.toolbar)
+        mainToolBar?.toolbar?.apply {
+            setSupportActionBar(this)
+        }
     }
 
     override fun initView() {

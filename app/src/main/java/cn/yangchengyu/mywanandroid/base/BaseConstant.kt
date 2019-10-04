@@ -9,4 +9,11 @@ class BaseConstant {
         //Token Key
         const val KEY_SP_TOKEN = "token"
     }
+
+    open class WebViewConstants {
+        companion object{
+            val WEB_TITLE = "web_title"
+            val WEB_URL = "web_url"
+        }
+    }
 }

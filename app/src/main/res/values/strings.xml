@@ -30,4 +30,6 @@
     <string name="toolbar_main_search">搜索</string>
     <string name="toolbar_main_scan">扫码</string>
 
+    <string name="webview_loading">加载中…</string>
+    <string name="webview_title_err">未知标题</string>
 </resources>

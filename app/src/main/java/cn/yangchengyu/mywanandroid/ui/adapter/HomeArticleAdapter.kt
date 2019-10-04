@@ -12,7 +12,7 @@ class HomeArticleAdapter(layoutResId: Int = R.layout.item_article) :
 
     override fun convert(holder: BaseViewHolder, item: ArticleBean) {
         holder.apply {
-            holder.setText(
+            setText(
                 R.id.articleTitle,
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     Html.fromHtml(item.title, Html.FROM_HTML_MODE_LEGACY)

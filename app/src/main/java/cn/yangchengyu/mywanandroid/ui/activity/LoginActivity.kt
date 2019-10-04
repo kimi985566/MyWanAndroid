@@ -31,13 +31,15 @@ class LoginActivity : BaseViewModelActivity<LoginViewModel>() {
     override fun provideViewModelClass(): Class<LoginViewModel>? = LoginViewModel::class.java
 
     override fun initTitle() {
-        setSupportActionBar(loginToolBar.toolbar)
+        loginToolBar?.toolbar?.apply {
+            setSupportActionBar(this)
+            setNavigationOnClickListener { onBackPressed() }
+            title = getString(R.string.login)
+        }
+
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
         }
-
-        loginToolBar.toolbar.setNavigationOnClickListener { onBackPressed() }
-        loginToolBar.toolbar.title = getString(R.string.login)
     }
 
     override fun initView() {

@@ -12,7 +12,7 @@ ext {
             navigation             : "2.1.0",
             lifecycle              : "2.1.0",
             material               : "1.0.0",
-            appcompat              : "1.1.0",
+            appcompat              : "1.1.0-beta01",
             core_ktx               : "1.1.0",
             constraintLayout       : "2.0.0-beta2",
             legacy_support         : "1.0.0",
@@ -57,6 +57,7 @@ ext {
             //anko
             "anko"                         : "org.jetbrains.anko:anko:${dependVersion.anko_version}",
             "anko-design"                  : "org.jetbrains.anko:anko-design:${dependVersion.anko_version}",
+            "anko-coroutines"              : "org.jetbrains.anko:anko-coroutines:${dependVersion.anko_version}",
 
             //okHttp
             "okhttp"                       : "com.squareup.okhttp3:okhttp:${dependVersion.ok_http_version}",
@@ -67,6 +68,9 @@ ext {
             "retrofit"                     : "com.squareup.retrofit2:retrofit:${dependVersion.retrofit_version}",
             "converter-gson"               : "com.squareup.retrofit2:converter-gson:${dependVersion.retrofit_version}",
             "adapter-rxjava"               : "com.squareup.retrofit2:adapter-rxjava:${dependVersion.retrofit_version}",
+
+            //agentweb
+            "agentweb"                     : "com.just.agentweb:agentweb:4.1.2",
 
             //constraintLayout
             "constraintLayout"             : "androidx.constraintlayout:constraintlayout:${dependVersion.constraintLayout}",

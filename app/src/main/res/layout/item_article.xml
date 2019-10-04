@@ -17,10 +17,11 @@
         android:id="@+id/articleIcon"
         android:layout_width="20dp"
         android:layout_height="20dp"
+        android:layout_marginTop="10dp"
         android:src="@drawable/ic_user"
-        app:layout_constraintBottom_toTopOf="@+id/articleTitle"
+        app:layout_constraintBottom_toTopOf="@+id/articleTimeIcon"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/articleTitle" />
 
     <TextView
         android:id="@+id/articleAuthor"
@@ -52,16 +53,15 @@
         android:id="@+id/articleTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:ellipsize="end"
         android:maxLines="3"
         android:textColor="@color/text_dark_black"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/articleTimeIcon"
+        app:layout_constraintBottom_toTopOf="@+id/articleIcon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/articleIcon"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="标题" />
 
     <ImageView
@@ -72,7 +72,7 @@
         android:src="@drawable/ic_time"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/articleTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/articleIcon" />
 
     <TextView
         android:id="@+id/articleTime"

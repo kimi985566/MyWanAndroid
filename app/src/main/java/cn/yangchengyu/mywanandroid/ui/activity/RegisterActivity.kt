@@ -30,12 +30,15 @@ class RegisterActivity : BaseViewModelActivity<LoginViewModel>() {
     override fun provideViewModelClass(): Class<LoginViewModel>? = LoginViewModel::class.java
 
     override fun initTitle() {
-        setSupportActionBar(registerToolBar.toolbar)
+        registerToolBar?.toolbar?.apply {
+            setSupportActionBar(this)
+            setNavigationOnClickListener { onBackPressed() }
+            title = getString(R.string.register)
+        }
+
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
         }
-        registerToolBar.toolbar.setNavigationOnClickListener { onBackPressed() }
-        registerToolBar.toolbar.title = getString(R.string.register)
     }
 
     override fun initView() {

@@ -5,9 +5,11 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import cn.yangchengyu.mywanandroid.R
+import cn.yangchengyu.mywanandroid.base.BaseConstant
 import cn.yangchengyu.mywanandroid.base.BaseViewModelFragment
 import cn.yangchengyu.mywanandroid.data.model.ArticleList
 import cn.yangchengyu.mywanandroid.data.model.Banner
+import cn.yangchengyu.mywanandroid.ui.activity.WebViewActivity
 import cn.yangchengyu.mywanandroid.ui.adapter.HomeArticleAdapter
 import cn.yangchengyu.mywanandroid.utils.BannerImageLoader
 import cn.yangchengyu.mywanandroid.view.CustomLoadMoreView
@@ -16,6 +18,7 @@ import com.blankj.utilcode.util.SizeUtils
 import com.example.ycy.baselibrary.ui.other.VerticalSpacesItemDecoration
 import com.youth.banner.BannerConfig
 import kotlinx.android.synthetic.main.fragment_home.*
+import org.jetbrains.anko.support.v4.startActivity
 
 class HomeFragment : BaseViewModelFragment<HomeViewModel>() {
 
@@ -78,7 +81,6 @@ class HomeFragment : BaseViewModelFragment<HomeViewModel>() {
         banner.run {
             layoutParams =
                 ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, SizeUtils.dp2px(200f))
-            setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE)
             setImageLoader(BannerImageLoader())
         }
     }
@@ -135,6 +137,8 @@ class HomeFragment : BaseViewModelFragment<HomeViewModel>() {
             //设置Banner
             banner.apply {
                 setImages(bannerImages)
+                setBannerStyle(BannerConfig.CIRCLE_INDICATOR)
+                setIndicatorGravity(BannerConfig.RIGHT)
                 setBannerTitles(bannerTitles)
                 setDelayTime(3000)
                 start()
@@ -149,6 +153,13 @@ class HomeFragment : BaseViewModelFragment<HomeViewModel>() {
 
     private fun setArticles(articleList: ArticleList) {
         homeArticleAdapter.run {
+            setOnItemClickListener { _, _, position ->
+                startActivity<WebViewActivity>(
+                    BaseConstant.WebViewConstants.WEB_URL to this.data[position].link,
+                    BaseConstant.WebViewConstants.WEB_TITLE to this.data[position].title
+                )
+            }
+
             if (!articleList.datas.isNullOrEmpty()) {
                 if (currentPage == 0) {
                     //刷新，首次加载
