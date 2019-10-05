@@ -33,6 +33,12 @@ import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
+/**
+ * Desc  : 首页
+ * Author: Chengyu Yang
+ * Date  : 2019-09-11
+ */
+
 class MainActivity : BaseActivity() {
 
     private var pressTime: Long = 0

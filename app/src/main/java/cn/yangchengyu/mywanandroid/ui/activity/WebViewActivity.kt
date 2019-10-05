@@ -2,7 +2,6 @@ package cn.yangchengyu.mywanandroid.ui.activity
 
 import android.graphics.Bitmap
 import android.view.KeyEvent
-import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebSettings
 import android.webkit.WebView
@@ -15,6 +14,11 @@ import com.just.agentweb.*
 import kotlinx.android.synthetic.main.activity_webview.*
 import kotlinx.android.synthetic.main.layout_toolbar.view.*
 
+/**
+ * Desc  : WebView页面
+ * Author: Chengyu Yang
+ * Date  : 2019-10-04
+ */
 
 class WebViewActivity : BaseActivity() {
 
@@ -22,7 +26,6 @@ class WebViewActivity : BaseActivity() {
     private lateinit var webUrl: String
 
     private lateinit var layoutParams: CoordinatorLayout.LayoutParams
-    private lateinit var errorView: View
 
     private var agentWeb: AgentWeb? = null
     private val agentWebView: NestedScrollAgentWebView by lazy {
@@ -50,8 +53,6 @@ class WebViewActivity : BaseActivity() {
             ).apply {
                 behavior = AppBarLayout.ScrollingViewBehavior()
             }
-
-        errorView = layoutInflater.inflate(R.layout.view_web_error_page, null)
     }
 
     override fun initData() {
@@ -72,7 +73,6 @@ class WebViewActivity : BaseActivity() {
             .setWebView(agentWebView)
             .setWebChromeClient(webChromeClient)
             .setWebViewClient(webViewClient)
-            .setMainFrameErrorView(errorView)
             .setOpenOtherPageWays(DefaultWebClient.OpenOtherPageWays.ASK)
             .createAgentWeb()
             .ready()

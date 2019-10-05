@@ -20,6 +20,11 @@ import com.youth.banner.BannerConfig
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.jetbrains.anko.support.v4.startActivity
 
+/**
+ * Desc  : 首页Fragment
+ * Author: Chengyu Yang
+ * Date  : 2019-09-11
+ */
 class HomeFragment : BaseViewModelFragment<HomeViewModel>() {
 
     private val homeArticleAdapter by lazy { HomeArticleAdapter() }
@@ -136,11 +141,17 @@ class HomeFragment : BaseViewModelFragment<HomeViewModel>() {
         if (bannerImages.isNotEmpty()) {
             //设置Banner
             banner.apply {
-                setImages(bannerImages)
-                setBannerStyle(BannerConfig.CIRCLE_INDICATOR)
+                setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE)
                 setIndicatorGravity(BannerConfig.RIGHT)
+                setImages(bannerImages)
                 setBannerTitles(bannerTitles)
                 setDelayTime(3000)
+                setOnBannerListener { position ->
+                    startActivity<WebViewActivity>(
+                        BaseConstant.WebViewConstants.WEB_URL to bannerUrls[position],
+                        BaseConstant.WebViewConstants.WEB_TITLE to bannerTitles[position]
+                    )
+                }
                 start()
             }
 
