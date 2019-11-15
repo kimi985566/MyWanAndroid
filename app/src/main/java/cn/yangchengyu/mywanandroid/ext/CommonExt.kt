@@ -41,8 +41,8 @@ suspend fun executeResponse(
     errorBlock: suspend CoroutineScope.() -> Unit
 ) {
     coroutineScope {
-        when {
-            response.errorCode == null || response.errorCode == -1 -> errorBlock()
+        when (response.errorCode) {
+            null, -1 -> errorBlock()
             else -> successBlock()
         }
     }

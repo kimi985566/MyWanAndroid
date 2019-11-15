@@ -5,8 +5,6 @@ import cn.yangchengyu.mywanandroid.base.BaseViewModel
 import cn.yangchengyu.mywanandroid.data.model.UserInfo
 import cn.yangchengyu.mywanandroid.data.repository.LoginRepository
 import cn.yangchengyu.mywanandroid.ext.executeResponse
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
 /**
  * Desc  : LoginViewModel
@@ -31,9 +29,7 @@ class LoginViewModel : BaseViewModel() {
     fun login(userName: String, password: String) {
         viewModelLaunch {
             //获取数据
-            val loginResponse = withContext(Dispatchers.IO) {
-                repository.login(userName, password)
-            }
+            val loginResponse = repository.login(userName, password)
 
             //处理数据
             executeResponse(
@@ -53,9 +49,7 @@ class LoginViewModel : BaseViewModel() {
     fun register(userName: String, passWord: String) {
         viewModelLaunch {
             //获取数据
-            val registerResponse = withContext(Dispatchers.IO) {
-                repository.register(userName, passWord)
-            }
+            val registerResponse = repository.register(userName, passWord)
 
             //处理数据
             executeResponse(

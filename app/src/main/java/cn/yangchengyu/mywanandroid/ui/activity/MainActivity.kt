@@ -25,8 +25,6 @@ import com.blankj.utilcode.util.SnackbarUtils
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_toolbar.view.*
 import kotlinx.android.synthetic.main.view_nav_header_main.view.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -250,9 +248,7 @@ class MainActivity : BaseActivity() {
                 tryCatchLaunch({
                     executeResponse(
                         //logout response
-                        withContext(Dispatchers.IO) {
-                            LoginRepository().logout()
-                        },
+                        LoginRepository().logout(),
                         //success
                         {
                             //登出

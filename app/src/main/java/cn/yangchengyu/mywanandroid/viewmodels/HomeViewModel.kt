@@ -6,8 +6,6 @@ import cn.yangchengyu.mywanandroid.data.model.ArticleList
 import cn.yangchengyu.mywanandroid.data.model.Banner
 import cn.yangchengyu.mywanandroid.data.repository.HomeRepository
 import cn.yangchengyu.mywanandroid.ext.executeResponse
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
 class HomeViewModel : BaseViewModel() {
 
@@ -19,9 +17,7 @@ class HomeViewModel : BaseViewModel() {
 
     fun getBanner() {
         viewModelLaunch {
-            val bannerResponse = withContext(Dispatchers.IO) {
-                repository.getBanner()
-            }
+            val bannerResponse = repository.getBanner()
 
             executeResponse(
                 bannerResponse,
@@ -33,9 +29,7 @@ class HomeViewModel : BaseViewModel() {
 
     fun getArticleList(page: Int) {
         viewModelLaunch {
-            val articleResponse = withContext(Dispatchers.IO) {
-                repository.getArticleList(page)
-            }
+            val articleResponse = repository.getArticleList(page)
 
             executeResponse(
                 articleResponse,
@@ -47,11 +41,9 @@ class HomeViewModel : BaseViewModel() {
 
     fun collectArticle(articleId: Int, boolean: Boolean) {
         viewModelLaunch {
-            withContext(Dispatchers.IO) {
-                when {
-                    boolean -> repository.collectArticle(articleId)
-                    else -> repository.unCollectArticle(articleId)
-                }
+            when {
+                boolean -> repository.collectArticle(articleId)
+                else -> repository.unCollectArticle(articleId)
             }
         }
     }
