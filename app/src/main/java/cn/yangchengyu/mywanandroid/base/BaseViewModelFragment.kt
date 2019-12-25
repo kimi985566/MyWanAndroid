@@ -57,7 +57,7 @@ abstract class BaseViewModelFragment<V : BaseViewModel> : BaseFragment() {
             activity?.run {
                 viewModel = ViewModelProviders.of(this).get(cls)
                 lifecycle.addObserver(viewModel)
-            }
+            } ?: throw Exception("Invalid Activity")
         }
     }
 

@@ -145,7 +145,6 @@ class MainActivity : BaseActivity() {
                 }
                 R.id.nav_logout -> {
                     logout()
-
                 }
                 R.id.nav_todo_list -> {
 

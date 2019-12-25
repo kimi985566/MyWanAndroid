@@ -28,7 +28,7 @@ abstract class BaseViewModelActivity<V : BaseViewModel> : BaseActivity() {
     private fun initViewModel() {
         provideViewModelClass()?.let {
             viewModel = ViewModelProviders.of(this).get(it)
-            viewModel.let(lifecycle::addObserver)
+            lifecycle.addObserver(viewModel)
         }
     }
 

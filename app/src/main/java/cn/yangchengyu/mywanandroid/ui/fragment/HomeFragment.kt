@@ -1,6 +1,5 @@
 package cn.yangchengyu.mywanandroid.ui.fragment
 
-import android.text.TextUtils
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -68,7 +67,7 @@ class HomeFragment : BaseViewModelFragment<HomeViewModel>() {
 
         viewModel.apply {
             banners.observe(this@HomeFragment, Observer { bannerList ->
-                setBanner(bannerList)
+                setBanner(bannerList.filterNotNull())
             })
 
             articleList.observe(this@HomeFragment, Observer { articleList ->
@@ -125,13 +124,11 @@ class HomeFragment : BaseViewModelFragment<HomeViewModel>() {
         viewModel.getArticleList(currentPage)
     }
 
-    private fun setBanner(bannerList: List<Banner>) {
-        if (hasLoadBanner) return
+    private fun setBanner(bannerList: List<Banner>?) {
+        if (hasLoadBanner || bannerList.isNullOrEmpty()) return
 
         for (banner in bannerList) {
-            if (!TextUtils.isEmpty(banner.imagePath) && !TextUtils.isEmpty(banner.title)
-                && !TextUtils.isEmpty(banner.url)
-            ) {
+            if (!banner.imagePath.isNullOrEmpty() && !banner.title.isNullOrEmpty() && !banner.url.isNullOrEmpty()) {
                 bannerImages.add(banner.imagePath!!)
                 bannerTitles.add(banner.title!!)
                 bannerUrls.add(banner.url!!)

@@ -10,7 +10,7 @@ import cn.yangchengyu.mywanandroid.ext.executeResponse
 class HomeViewModel : BaseViewModel() {
 
     val articleList: MutableLiveData<ArticleList> by lazy { MutableLiveData<ArticleList>() }
-    val banners: MutableLiveData<List<Banner>> by lazy { MutableLiveData<List<Banner>>() }
+    val banners: MutableLiveData<List<Banner?>> by lazy { MutableLiveData<List<Banner?>>() }
     val errorMsg: MutableLiveData<String> by lazy { MutableLiveData<String>() }
 
     private val repository by lazy { HomeRepository() }
