@@ -19,6 +19,7 @@ class HomeArticleAdapter(layoutResId: Int = R.layout.item_article) :
 
     override fun convert(holder: BaseViewHolder, item: ArticleBean) {
         holder.apply {
+            //标题
             setText(
                 R.id.articleTitle,
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -27,15 +28,33 @@ class HomeArticleAdapter(layoutResId: Int = R.layout.item_article) :
                     Html.fromHtml(item.title)
                 }
             )
-            setText(R.id.articleAuthor, item.author)
-            if (item.envelopePic.isNullOrBlank()) {
+
+            //图片
+            if (item.envelopePic.isNullOrEmpty()) {
                 setGone(R.id.articleImage, false)
             } else {
                 setGone(R.id.articleImage, true)
                 ImageLoader.load(mContext, item.envelopePic, itemView.articleImage)
             }
+
+            //作者
+            if (item.author.isNullOrEmpty()) {
+                setGone(R.id.articleAuthor, false)
+            } else {
+                setGone(R.id.articleAuthor, true)
+                setText(R.id.articleAuthor, item.author)
+            }
+
+            //标签
             setText(R.id.articleTag, "${item.superChapterName ?: ""} ${item.chapterName}")
-            setText(R.id.articleTime, item.niceDate)
+
+            //发布时间
+            if (item.niceDate.isNullOrEmpty()) {
+                setGone(R.id.articleTimeIcon, false)
+            } else {
+                setGone(R.id.articleTimeIcon, true)
+                setText(R.id.articleTime, item.niceDate)
+            }
         }
     }
 }

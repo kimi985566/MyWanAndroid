@@ -47,6 +47,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/articleAuthor"
         app:layout_constraintStart_toEndOf="@+id/articleAuthor"
         app:layout_constraintTop_toTopOf="@+id/articleAuthor"
+        app:layout_goneMarginStart="0dp"
         tools:text="Android" />
 
     <TextView
