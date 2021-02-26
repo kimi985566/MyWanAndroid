@@ -1,16 +1,13 @@
 package cn.yangchengyu.mywanandroid.ui.activity
 
-import androidx.lifecycle.Observer
 import cn.yangchengyu.mywanandroid.R
 import cn.yangchengyu.mywanandroid.base.BaseViewModelActivity
+import cn.yangchengyu.mywanandroid.databinding.ActivityRegisterBinding
 import cn.yangchengyu.mywanandroid.ext.enable
 import cn.yangchengyu.mywanandroid.ext.onClick
 import cn.yangchengyu.mywanandroid.viewmodels.LoginViewModel
 import com.blankj.utilcode.util.SnackbarUtils
 import com.blankj.utilcode.util.ToastUtils
-import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_register.*
-import kotlinx.android.synthetic.main.layout_toolbar.view.*
 import org.jetbrains.anko.clearTop
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.singleTop
@@ -22,15 +19,20 @@ import org.jetbrains.anko.singleTop
  */
 class RegisterActivity : BaseViewModelActivity<LoginViewModel>() {
 
+    private lateinit var binding: ActivityRegisterBinding
+
     private lateinit var userName: String
     private lateinit var passWord: String
 
-    override fun getLayoutResId(): Int = R.layout.activity_register
+    override fun provideViewModelClass(): Class<LoginViewModel> = LoginViewModel::class.java
 
-    override fun provideViewModelClass(): Class<LoginViewModel>? = LoginViewModel::class.java
+    override fun initBinding() {
+        binding = ActivityRegisterBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+    }
 
     override fun initTitle() {
-        registerToolBar?.toolbar?.apply {
+        binding.registerToolBar.toolbar.apply {
             setSupportActionBar(this)
             setNavigationOnClickListener { onBackPressed() }
             title = getString(R.string.register)
@@ -42,12 +44,12 @@ class RegisterActivity : BaseViewModelActivity<LoginViewModel>() {
     }
 
     override fun initView() {
-        registerButton.enable(registerUserName.editText!!) { checkInput() }
-        registerButton.enable(registerPassWord.editText!!) { checkInput() }
+        binding.registerButton.enable(binding.registerUserName.editText) { checkInput() }
+        binding.registerButton.enable(binding.registerPassWord.editText) { checkInput() }
     }
 
     override fun initData() {
-        registerButton.onClick {
+        binding.registerButton.onClick {
             showProgressDialog()
             viewModel.register(userName, passWord)
         }
@@ -57,7 +59,7 @@ class RegisterActivity : BaseViewModelActivity<LoginViewModel>() {
         super.startObserve()
 
         viewModel.apply {
-            registerUser.observe(this@RegisterActivity, Observer {
+            registerUser.observe(this@RegisterActivity, {
                 dismissProgressDialog()
 
                 ToastUtils.showShort(R.string.registerSuccess)
@@ -66,11 +68,11 @@ class RegisterActivity : BaseViewModelActivity<LoginViewModel>() {
                 startActivity(intentFor<LoginActivity>().singleTop().clearTop())
             })
 
-            errorMsg.observe(this@RegisterActivity, Observer {
+            errorMsg.observe(this@RegisterActivity, {
                 dismissProgressDialog()
 
                 it?.run {
-                    SnackbarUtils.with(loginButton)
+                    SnackbarUtils.with(binding.root)
                         .setMessage(it)
                         .setDuration(SnackbarUtils.LENGTH_SHORT)
                         .showError()
@@ -80,21 +82,21 @@ class RegisterActivity : BaseViewModelActivity<LoginViewModel>() {
     }
 
     private fun checkInput(): Boolean {
-        userName = registerUserName.editText?.text.toString()
-        passWord = registerPassWord.editText?.text.toString()
+        userName = binding.registerUserName.editText?.text.toString()
+        passWord = binding.registerPassWord.editText?.text.toString()
 
         if (userName.isEmpty()) {
-            registerUserName.error = "请输入用户名"
+            binding.registerUserName.error = "请输入用户名"
             return false
         } else {
-            registerUserName.error = null
+            binding.registerUserName.error = null
         }
 
         if (passWord.isEmpty()) {
-            registerPassWord.error = "请输入密码"
+            binding.registerPassWord.error = "请输入密码"
             return false
         } else {
-            registerPassWord.error = null
+            binding.registerPassWord.error = null
         }
 
         return true

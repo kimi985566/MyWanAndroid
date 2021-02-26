@@ -4,8 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
 
@@ -18,8 +17,10 @@ abstract class BaseViewModelFragment<V : BaseViewModel> : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(getLayoutResId(), container, false)
+        return initBinding(inflater, container)
     }
+
+    abstract fun initBinding(inflater: LayoutInflater, container: ViewGroup?): View
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -31,7 +32,7 @@ abstract class BaseViewModelFragment<V : BaseViewModel> : BaseFragment() {
     }
 
     open fun startObserve() {
-        viewModel.exceptionViewModel.observe(this, Observer { t ->
+        viewModel.exceptionViewModel.observe(viewLifecycleOwner, { t ->
             onError(t)
         })
     }
@@ -46,8 +47,6 @@ abstract class BaseViewModelFragment<V : BaseViewModel> : BaseFragment() {
         LogUtils.w(e)
     }
 
-    abstract fun getLayoutResId(): Int
-
     abstract fun initView()
 
     abstract fun initData()
@@ -55,7 +54,7 @@ abstract class BaseViewModelFragment<V : BaseViewModel> : BaseFragment() {
     private fun initVM() {
         providerVMClass()?.let { cls ->
             activity?.run {
-                viewModel = ViewModelProviders.of(this).get(cls)
+                viewModel = ViewModelProvider(this).get(cls)
                 lifecycle.addObserver(viewModel)
             } ?: throw Exception("Invalid Activity")
         }

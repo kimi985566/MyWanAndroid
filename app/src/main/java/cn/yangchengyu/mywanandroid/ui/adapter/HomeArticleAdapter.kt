@@ -7,7 +7,6 @@ import cn.yangchengyu.mywanandroid.data.model.ArticleBean
 import cn.yangchengyu.mywanandroid.utils.ImageLoader
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
-import kotlinx.android.synthetic.main.item_article.view.*
 
 /**
  * Desc  : 首页Adapter
@@ -34,7 +33,11 @@ class HomeArticleAdapter(layoutResId: Int = R.layout.item_article) :
                 setGone(R.id.articleImage, false)
             } else {
                 setGone(R.id.articleImage, true)
-                ImageLoader.load(mContext, item.envelopePic, itemView.articleImage)
+                ImageLoader.load(
+                    mContext,
+                    item.envelopePic,
+                    itemView.findViewById(R.id.articleImage)
+                )
             }
 
             //作者

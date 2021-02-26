@@ -1,17 +1,15 @@
 package cn.yangchengyu.mywanandroid.ui.activity
 
-import androidx.lifecycle.Observer
 import cn.yangchengyu.mywanandroid.R
 import cn.yangchengyu.mywanandroid.base.BaseViewModelActivity
 import cn.yangchengyu.mywanandroid.data.model.LoginSuccess
+import cn.yangchengyu.mywanandroid.databinding.ActivityLoginBinding
 import cn.yangchengyu.mywanandroid.ext.enable
 import cn.yangchengyu.mywanandroid.ext.onClick
 import cn.yangchengyu.mywanandroid.utils.UserPrefsUtils
 import cn.yangchengyu.mywanandroid.viewmodels.LoginViewModel
 import com.blankj.utilcode.util.SnackbarUtils
 import com.blankj.utilcode.util.ToastUtils
-import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.layout_toolbar.view.*
 import org.greenrobot.eventbus.EventBus
 import org.jetbrains.anko.startActivity
 
@@ -23,15 +21,20 @@ import org.jetbrains.anko.startActivity
 
 class LoginActivity : BaseViewModelActivity<LoginViewModel>() {
 
+    private lateinit var binding: ActivityLoginBinding
+
     private lateinit var userName: String
     private lateinit var passWord: String
 
-    override fun getLayoutResId(): Int = R.layout.activity_login
+    override fun provideViewModelClass(): Class<LoginViewModel> = LoginViewModel::class.java
 
-    override fun provideViewModelClass(): Class<LoginViewModel>? = LoginViewModel::class.java
+    override fun initBinding() {
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+    }
 
     override fun initTitle() {
-        loginToolBar?.toolbar?.apply {
+        binding.loginToolBar.toolbar.apply {
             setSupportActionBar(this)
             setNavigationOnClickListener { onBackPressed() }
             title = getString(R.string.login)
@@ -43,17 +46,17 @@ class LoginActivity : BaseViewModelActivity<LoginViewModel>() {
     }
 
     override fun initView() {
-        loginButton.enable(loginUserName.editText!!) { checkInput() }
-        loginButton.enable(loginPassWord.editText!!) { checkInput() }
+        binding.loginButton.enable(binding.loginUserName.editText) { checkInput() }
+        binding.loginButton.enable(binding.loginPassWord.editText) { checkInput() }
     }
 
     override fun initData() {
-        loginButton.onClick {
+        binding.loginButton.onClick {
             showProgressDialog()
             viewModel.login(userName, passWord)
         }
 
-        loginRegisterText.onClick {
+        binding.loginRegisterText.onClick {
             startActivity<RegisterActivity>()
         }
     }
@@ -62,7 +65,7 @@ class LoginActivity : BaseViewModelActivity<LoginViewModel>() {
         super.startObserve()
 
         viewModel.apply {
-            loginUser.observe(this@LoginActivity, Observer {
+            loginUser.observe(this@LoginActivity, {
                 //保存用户信息
                 UserPrefsUtils.putUserInfo(it)
 
@@ -75,11 +78,11 @@ class LoginActivity : BaseViewModelActivity<LoginViewModel>() {
                 finish()
             })
 
-            errorMsg.observe(this@LoginActivity, Observer {
+            errorMsg.observe(this@LoginActivity, {
                 dismissProgressDialog()
 
                 it?.run {
-                    SnackbarUtils.with(loginButton)
+                    SnackbarUtils.with(binding.root)
                         .setMessage(it)
                         .setDuration(SnackbarUtils.LENGTH_SHORT)
                         .showError()
@@ -89,21 +92,21 @@ class LoginActivity : BaseViewModelActivity<LoginViewModel>() {
     }
 
     private fun checkInput(): Boolean {
-        userName = loginUserName.editText?.text.toString()
-        passWord = loginPassWord.editText?.text.toString()
+        userName = binding.loginUserName.editText?.text.toString()
+        passWord = binding.loginPassWord.editText?.text.toString()
 
         if (userName.isEmpty()) {
-            loginUserName.error = "请输入用户名"
+            binding.loginUserName.error = "请输入用户名"
             return false
         } else {
-            loginUserName.error = null
+            binding.loginUserName.error = null
         }
 
         if (passWord.isEmpty()) {
-            loginPassWord.error = "请输入密码"
+            binding.loginPassWord.error = "请输入密码"
             return false
         } else {
-            loginPassWord.error = null
+            binding.loginPassWord.error = null
         }
 
         return true

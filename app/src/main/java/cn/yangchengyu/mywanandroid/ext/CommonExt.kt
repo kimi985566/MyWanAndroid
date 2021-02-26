@@ -1,8 +1,12 @@
 package cn.yangchengyu.mywanandroid.ext
 
+import android.app.Activity
+import android.app.Dialog
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import androidx.viewbinding.ViewBinding
 import cn.yangchengyu.mywanandroid.data.model.WanResponse
 import cn.yangchengyu.mywanandroid.utils.DefaultTextWatcher
 import com.blankj.utilcode.util.LogUtils
@@ -51,8 +55,8 @@ suspend fun executeResponse(
 /**
  * 扩展Button可用性
  */
-fun Button.enable(et: EditText, method: () -> Boolean) {
-    et.addTextChangedListener(object : DefaultTextWatcher() {
+fun Button.enable(et: EditText?, method: () -> Boolean) {
+    et?.addTextChangedListener(object : DefaultTextWatcher() {
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             this@enable.isEnabled = method()
         }
@@ -77,3 +81,15 @@ fun tryCatchLaunch(
         }
     }
 }
+
+inline fun <reified VB : ViewBinding> Activity.inflate() = lazy {
+    inflateBinding<VB>(layoutInflater).apply { setContentView(root) }
+}
+
+inline fun <reified VB : ViewBinding> Dialog.inflate() = lazy {
+    inflateBinding<VB>(layoutInflater).apply { setContentView(root) }
+}
+
+inline fun <reified VB : ViewBinding> inflateBinding(layoutInflater: LayoutInflater) =
+    VB::class.java.getMethod("inflate", LayoutInflater::class.java)
+        .invoke(null, layoutInflater) as VB

@@ -24,7 +24,7 @@ abstract class BaseActivity : AppCompatActivity(), LifecycleObserver {
         AppManager.addActivity(this)
 
         //设置布局
-        setContentView(getLayoutResId())
+        initBinding()
         //设置标题
         initTitle()
         //设置View
@@ -46,9 +46,6 @@ abstract class BaseActivity : AppCompatActivity(), LifecycleObserver {
         progressDialog.dismissAllowingStateLoss()
     }
 
-    //布局Id
-    abstract fun getLayoutResId(): Int
-
     //设置标题
     abstract fun initTitle()
 
@@ -57,4 +54,7 @@ abstract class BaseActivity : AppCompatActivity(), LifecycleObserver {
 
     //加载Data
     abstract fun initData()
+
+    //设置ViewBinding
+    abstract fun initBinding()
 }

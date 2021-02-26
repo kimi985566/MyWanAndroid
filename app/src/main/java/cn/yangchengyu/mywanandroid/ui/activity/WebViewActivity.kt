@@ -9,10 +9,9 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import cn.yangchengyu.mywanandroid.R
 import cn.yangchengyu.mywanandroid.base.BaseActivity
 import cn.yangchengyu.mywanandroid.base.BaseConstant
+import cn.yangchengyu.mywanandroid.databinding.ActivityWebviewBinding
 import com.google.android.material.appbar.AppBarLayout
 import com.just.agentweb.*
-import kotlinx.android.synthetic.main.activity_webview.*
-import kotlinx.android.synthetic.main.layout_toolbar.view.*
 
 /**
  * Desc  : WebView页面
@@ -21,6 +20,8 @@ import kotlinx.android.synthetic.main.layout_toolbar.view.*
  */
 
 class WebViewActivity : BaseActivity() {
+
+    private lateinit var binding: ActivityWebviewBinding
 
     private lateinit var webTitle: String
     private lateinit var webUrl: String
@@ -32,10 +33,13 @@ class WebViewActivity : BaseActivity() {
         NestedScrollAgentWebView(this)
     }
 
-    override fun getLayoutResId(): Int = R.layout.activity_webview
+    override fun initBinding() {
+        binding = ActivityWebviewBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+    }
 
     override fun initTitle() {
-        webViewToolBar?.toolbar?.apply {
+        binding.webViewToolBar.toolbar.apply {
             setSupportActionBar(this)
             setNavigationOnClickListener { finish() }
         }
@@ -68,7 +72,7 @@ class WebViewActivity : BaseActivity() {
         }
 
         agentWeb = AgentWeb.with(this)
-            .setAgentWebParent(webViewContent, layoutParams)
+            .setAgentWebParent(binding.webViewContent, layoutParams)
             .useDefaultIndicator()
             .setWebView(agentWebView)
             .setWebChromeClient(webChromeClient)
@@ -119,14 +123,14 @@ class WebViewActivity : BaseActivity() {
     private val webChromeClient = object : WebChromeClient() {
         override fun onReceivedTitle(view: WebView, title: String) {
             super.onReceivedTitle(view, title)
-            webViewToolBar?.toolbar?.title = title
+            binding.webViewToolBar.toolbar.title = title
         }
     }
 
     private val webViewClient = object : WebViewClient() {
         override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
             super.onPageStarted(view, url, favicon)
-            webViewToolBar?.toolbar?.title = getString(R.string.webview_loading)
+            binding.webViewToolBar.toolbar.title = getString(R.string.webview_loading)
         }
     }
 }

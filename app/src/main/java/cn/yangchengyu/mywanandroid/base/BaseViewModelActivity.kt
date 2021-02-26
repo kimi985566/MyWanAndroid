@@ -1,8 +1,7 @@
 package cn.yangchengyu.mywanandroid.base
 
 import android.os.Bundle
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
 
@@ -27,13 +26,13 @@ abstract class BaseViewModelActivity<V : BaseViewModel> : BaseActivity() {
 
     private fun initViewModel() {
         provideViewModelClass()?.let {
-            viewModel = ViewModelProviders.of(this).get(it)
+            viewModel = ViewModelProvider(this).get(it)
             lifecycle.addObserver(viewModel)
         }
     }
 
     open fun startObserve() {
-        viewModel.exceptionViewModel.observe(this, Observer {
+        viewModel.exceptionViewModel.observe(this, {
             it?.let {
                 onError(it)
             }
