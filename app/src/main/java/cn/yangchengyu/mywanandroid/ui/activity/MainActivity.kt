@@ -37,7 +37,7 @@ import org.jetbrains.anko.toast
 
 class MainActivity : BaseActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private val binding by viewBinding(ActivityMainBinding::inflate)
 
     private var pressTime: Long = 0
 
@@ -46,7 +46,6 @@ class MainActivity : BaseActivity() {
     private val homeFragment by lazy { HomeFragment.newInstance() }
 
     override fun initBinding() {
-        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
     }
 

@@ -1,26 +1,19 @@
 package cn.yangchengyu.mywanandroid.base
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import androidx.annotation.LayoutRes
 import androidx.lifecycle.ViewModelProvider
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
 
-abstract class BaseViewModelFragment<V : BaseViewModel> : BaseFragment() {
+abstract class BaseViewModelFragment<V : BaseViewModel> : BaseFragment {
+
+    constructor() : super()
+
+    constructor(@LayoutRes resId: Int) : super(resId)
 
     lateinit var viewModel: V
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return initBinding(inflater, container)
-    }
-
-    abstract fun initBinding(inflater: LayoutInflater, container: ViewGroup?): View
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -1,14 +1,15 @@
 package cn.yangchengyu.mywanandroid.ext
 
-import android.app.Activity
-import android.app.Dialog
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import cn.yangchengyu.mywanandroid.data.model.WanResponse
 import cn.yangchengyu.mywanandroid.utils.DefaultTextWatcher
+import cn.yangchengyu.mywanandroid.utils.FragmentViewBindingDelegate
 import com.blankj.utilcode.util.LogUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.coroutineScope
@@ -82,14 +83,14 @@ fun tryCatchLaunch(
     }
 }
 
-inline fun <reified VB : ViewBinding> Activity.inflate() = lazy {
-    inflateBinding<VB>(layoutInflater).apply { setContentView(root) }
-}
+fun CharSequence?.safeToString() = this?.toString() ?: ""
 
-inline fun <reified VB : ViewBinding> Dialog.inflate() = lazy {
-    inflateBinding<VB>(layoutInflater).apply { setContentView(root) }
-}
+fun <T : ViewBinding> Fragment.viewBinding(viewBindingFactory: (View) -> T) =
+    FragmentViewBindingDelegate(this, viewBindingFactory)
 
-inline fun <reified VB : ViewBinding> inflateBinding(layoutInflater: LayoutInflater) =
-    VB::class.java.getMethod("inflate", LayoutInflater::class.java)
-        .invoke(null, layoutInflater) as VB
+inline fun <T : ViewBinding> AppCompatActivity.viewBinding(
+    crossinline bindingInflater: (LayoutInflater) -> T
+) =
+    lazy {
+        bindingInflater.invoke(layoutInflater)
+    }

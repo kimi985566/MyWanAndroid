@@ -6,6 +6,7 @@ import cn.yangchengyu.mywanandroid.data.model.LoginSuccess
 import cn.yangchengyu.mywanandroid.databinding.ActivityLoginBinding
 import cn.yangchengyu.mywanandroid.ext.enable
 import cn.yangchengyu.mywanandroid.ext.onClick
+import cn.yangchengyu.mywanandroid.ext.safeToString
 import cn.yangchengyu.mywanandroid.utils.UserPrefsUtils
 import cn.yangchengyu.mywanandroid.viewmodels.LoginViewModel
 import com.blankj.utilcode.util.SnackbarUtils
@@ -92,8 +93,8 @@ class LoginActivity : BaseViewModelActivity<LoginViewModel>() {
     }
 
     private fun checkInput(): Boolean {
-        userName = binding.loginUserName.editText?.text.toString()
-        passWord = binding.loginPassWord.editText?.text.toString()
+        userName = binding.loginUserName.editText?.text.safeToString()
+        passWord = binding.loginPassWord.editText?.text.safeToString()
 
         if (userName.isEmpty()) {
             binding.loginUserName.error = "请输入用户名"
